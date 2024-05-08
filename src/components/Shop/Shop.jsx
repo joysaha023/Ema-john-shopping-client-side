@@ -26,7 +26,7 @@ const Shop = () => {
         fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemsPerPage}`)
             .then(res => res.json())
             .then(data => setProducts(data))
-    }, []);
+    }, [currentPage, itemsPerPage]);
 
     useEffect(() => {
         const storedCart = getShoppingCart();
@@ -99,7 +99,7 @@ const Shop = () => {
             <div className="products-container">
                 
                 {
-                    products.slice(0, 9).map(product => <Product
+                    products.map(product => <Product
                         key={product._id}
                         product={product}
                         handleAddToCart={handleAddToCart}
@@ -122,7 +122,7 @@ const Shop = () => {
                 <button onClick={handlePrevePage}>Prev</button>
                 {
                     pages.map(page => <button
-                        className={currentPage === page && "selected"}
+                        className={currentPage === page ? "selected" : undefined}
                         onClick={() => setCurrentPage(page)}
                          key={page}
                          >{page}</button>)
